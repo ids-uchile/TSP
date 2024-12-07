@@ -8,7 +8,7 @@ Maximiliano Rojas - Information and Decision System Group - Universidad de Chile
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from TSPNode_new import TSPNode
+from TSPNode import TSPNode
 
 
 class TSP:
