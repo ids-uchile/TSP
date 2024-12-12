@@ -107,7 +107,7 @@ def compute_emi_evolution(x: np.ndarray, y: np.ndarray, stride: int = 1, l_bn: f
     iter_idx: int
     iter_range: Union[range, tqdm] = tqdm(range(total_iterations)) if show_tqdm else range(total_iterations)
     for iter_idx in iter_range:
-        iteration_emi: (float, int, float, int) = estimate_mi(x=x[:stride*(iter_idx+1)], y=y[:stride*(iter_idx+1)],
+        iteration_emi: Union[float, int, float, int] = estimate_mi(x=x[:stride*(iter_idx+1)], y=y[:stride*(iter_idx+1)],
                                                               l_bn=l_bn, w_bn=w_bn, lambda_factor=lambda_factor)
         evolution_output[0, iter_idx] = stride*(iter_idx+1)
         output_idx: int

@@ -8,27 +8,33 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from utils import data_plot, estimate_mi, print_emi_output, compute_emi_evolution, emi_evolution_plot
+from distributions import ContinuousGaussian, ContinuousUniform, Mixed, Discrete
 
 import matplotlib.pyplot as plt
 import numpy as np
 
+# As an example, use a bi-variate gaussian
+sample_size = 2000
+parameter = 0.5
+n_symbols = 4
+continuous_noise = 0.1
+discrete_shuffling = 'fixed'
 
-# In this example the data is sampled from a bivariate normal 
-# Set the parameters for the distribution
-mean_x = 0           
-mean_y = 0           
-std_x = 1            
-std_y = 1            
-rho = 0.5           
+# Change the method according to the desired distribution
+distribution = Discrete(seed=42)
+distribution.set_parameter(
+      parameter=parameter,
+      n_symbols=n_symbols,
+      continuous_noise=continuous_noise,
+      discrete_shuffling=discrete_shuffling
+  )
 
-# Create the covariance matrix for the bivariate normal distribution
-covariance_matrix = np.array([[std_x**2, rho * std_x * std_y],
-                              [rho * std_x * std_y, std_y**2]])
-mean = [mean_x, mean_y]
+# Generate sampĺes
+data = distribution.gen_data(sample_size)
 
-# Generate random samples from the bivariate normal distribution
-size = 2*10**3 
-x, y = np.random.multivariate_normal(mean, covariance_matrix, size).T
+# Split samples in the random variables X and Y
+x = data[:, 0]
+y = data[:, 1]
 
 # Estimation of the mutual information
 post_emi, post_size, prev_emi, prev_size = estimate_mi(x=x, y=y)
