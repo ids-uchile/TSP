@@ -139,11 +139,11 @@ def data_plot(x: np.ndarray, y: np.ndarray, fig_size: Tuple[int, int] = (5, 4), 
         plot_name = r"$Hexbin$-$plot$"
         hb: clt.PolyCollection = ax.hexbin(x=x, y=y, gridsize=grid_size, cmap=c_map)
         ax.axis([np.min(a=x), np.max(a=x), np.min(a=y), np.max(a=y)])
-        fig.colorbar(hb, ax=ax, label="Conteo de valores en celda hexagonal")
+        fig.colorbar(hb, ax=ax, label="Counting Values in a Hexagonal Cell")
     else:
         raise ValueError(f"Mode {mode} unknown for the data_plot function")
-    ax.set_xlabel(xlabel="Valor de las coordenadas de " + x_name)
-    ax.set_ylabel(ylabel="Valor de las coordenadas de " + y_name)
+    ax.set_xlabel(xlabel=x_name)
+    ax.set_ylabel(ylabel=y_name)
     ax.set_title(label=plot_name + " " + x_name + " vs " + y_name)
     fig.tight_layout()
     return fig
@@ -195,7 +195,7 @@ def emi_evolution_plot(evolution_array: np.ndarray, plot_post_emi: bool = True, 
         fig, ax = plt.subplots(nrows=2, ncols=1, figsize=(8, 6), sharex="col")
         emi_ax = ax[0]
         size_ax = ax[1]
-        size_ax.set_xlabel("Cantidad de muestras")
+        size_ax.set_xlabel("Number of Samples")
     else:
         fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(8, 4))
         emi_ax = ax if plot_emi else None
@@ -209,20 +209,19 @@ def emi_evolution_plot(evolution_array: np.ndarray, plot_post_emi: bool = True, 
             reg_label: str
             if evol_idx == 0 or evol_idx == 1:
                 plot_color = 'b'
-                reg_label = "Posterior a regularizar"
+                reg_label = "Post Regularization"
             else:
                 plot_color = 'r'
-                reg_label = "Previo a regularizar"
+                reg_label = "Pre Regularization"
             current_ax.plot(evolution_array[0], evolution_array[evol_idx+1], color=plot_color, label=reg_label)
     if emi_ax is not None:
-        emi_ax.set_ylabel(r"Valor de EMI $\hat{I}($" + x_name + "," + y_name + ")")
-        emi_ax.set_title(r"Evolución del valor de EMI $\hat{I}($" + x_name + "," + y_name + ") según la cantidad de "
-                         "muestras")
+        emi_ax.set_ylabel(r"EMI $\hat{I}($" + x_name + "," + y_name + ")")
+        emi_ax.set_title(r"EMI Evolution $\hat{I}($" + x_name + "," + y_name + ") with respect to the number of samples")
         emi_ax.grid()
         emi_ax.legend()
     if size_ax is not None:
-        size_ax.set_ylabel("Tamaño del árbol")
-        size_ax.set_title("Evolución del tamaño del árbol que define la TSP según la cantidad de muestras")
+        size_ax.set_ylabel("Tree Size")
+        size_ax.set_title("TSP Tree Size Evolution with respect to the number of samples")
         size_ax.grid()
         size_ax.legend()
     fig.tight_layout()
@@ -264,13 +263,13 @@ def plot_signals(signals: np.ndarray, signal_names: List[str], signal_colors: Li
     signal_idx: int
     for signal_idx in range(n_signals):
         ax.plot(signal_array[:, signal_idx], color=signal_colors[signal_idx],
-                label="Señal " + signal_names[signal_idx])
+                label="Signal " + signal_names[signal_idx])
     ax.grid()
     ax.legend()
-    ax.set_xlabel(r"Paso de tiempo $k$")
-    ax.set_ylabel(r"Valor de la señal en tiempo $k$")
-    signal_desc: str = "las señales" if n_signals > 1 else "la señal"
-    ax.set_title("Evolución de " + signal_desc + " en el tiempo")
+    ax.set_xlabel(r" $k$")
+    ax.set_ylabel(r"Signal value $k$")
+    signal_desc: str = "the signals" if n_signals > 1 else "the signal"
+    ax.set_title(signal_desc + " time evolution")
     return fig
 
 
