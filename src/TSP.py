@@ -180,7 +180,7 @@ class TSP:
 
 
         # Plot sample points
-        ax.plot(x, y, 'bo', markersize=5, alpha=0.5) 
+        ax.scatter(x, y, marker='o', edgecolor='k', s=25, alpha=0.5)
 
 
         # Plot horizontal lines
