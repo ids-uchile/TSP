@@ -7,8 +7,8 @@ from TSP import TSP
 
 # Initialize NumPy arrays of shape (n_samples, dim) with random 
 # variables samples in Fortran-contiguous memory order
-X = np.array([-0.2, 0.5, 0.0, 0.0, 0.4, 2.0, -0.4, 1.0, 0.2, 3.0], order='F')
-Y = np.array([1.2, -0.5, 0.0, 0.0, 0.7, -1.0, 2.4, -1.2, 1.2, 8.0], order='F')
+X = np.array([-0.2, 1.5, 4.0, 2.0, -2.4, 2.0, -0.4, -4.0, 2.2, 3.0], order='F').reshape(-1, 1)
+Y = np.array([1.2, -4.5, 0.0, 4.0, 3.7, -1.0, 2.4, -1.2, 6.2, 6.0], order='F').reshape(-1, 1)
 
 # Initialize the TSP with its parameters
 l_bn = 0.167

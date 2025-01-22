@@ -157,47 +157,83 @@ class TSP:
         if self.root is None:
             raise ValueError("Observations not provided.")
 
-
         # Check if the problem is two dimensional
         if self.dim != 2:
             raise ValueError("The tree can only be visualized for a two dimensional problem.")
 
-
         # Partitions
         partitions = self.partitions()
 
-
-        # Initialize lists for the partitions in every dimension
+        # Prepare partition lines
         horizontal_partition = [partition[1:] for partition in partitions if partition[0] == 0]
-        vertical_partition = [partition[1:] for partition in partitions if partition[0] == 1]
+        vertical_partition   = [partition[1:] for partition in partitions if partition[0] == 1]
+
+        # Create figure with 1 row and 3 columns
+        fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(16, 5))
+
+        axes[0].scatter(x, y, marker='o', edgecolor='k', s=25, alpha=0.5)
+        axes[0].set_xlabel('x')
+        axes[0].set_ylabel('y')
+        axes[0].set_title('Samples')
+        axes[0].grid(alpha=0.3)
 
 
-        # Create a figure and axis object
-        fig, ax = plt.subplots()
-
-
-        # Plot sample points
-        ax.scatter(x, y, marker='o', edgecolor='k', s=25, alpha=0.5)
-
+        axes[1].scatter(x, y, marker='o', edgecolor='k', s=25, alpha=0.5)
 
         # Plot horizontal lines
         for bound in vertical_partition:
-            ax.hlines(y=bound[0][1], xmin=bound[0][0], xmax=bound[1][0], color='black')
-
+            axes[1].hlines(
+                y=bound[0][1],
+                xmin=bound[0][0],
+                xmax=bound[1][0],
+                color='black'
+            )
 
         # Plot vertical lines
         for bound in horizontal_partition:
-            ax.vlines(x=bound[0][0], ymin=bound[0][1], ymax=bound[1][1], color='black')
+            axes[1].vlines(
+                x=bound[0][0],
+                ymin=bound[0][1],
+                ymax=bound[1][1],
+                color='black'
+            )
+
+        axes[1].set_xlabel('x')
+        axes[1].set_ylabel('y')
+        axes[1].set_title(
+            f"TSP: samples={self.n_samples}, cell_samples={int(self.kn)}, grow_size={self.size()}"
+        )
+        axes[1].grid(alpha=0.3)
 
 
-        # Set labels and title
-        ax.set_xlabel('x')
-        ax.set_ylabel('y')
-        ax.set_title('TSP: n={}, k_n={}, size={}'.format(self.n_samples, int(self.kn), self.size()))
+        axes[2].scatter(x, y, marker='o', edgecolor='k', s=25, alpha=0.1)
 
+        # Partition lines (same logic)
+        for bound in vertical_partition:
+            axes[2].hlines(
+                y=bound[0][1],
+                xmin=bound[0][0],
+                xmax=bound[1][0],
+                color='black'
+            )
 
-        # Show plot
-        plt.grid(True)
+        for bound in horizontal_partition:
+            axes[2].vlines(
+                x=bound[0][0],
+                ymin=bound[0][1],
+                ymax=bound[1][1],
+                color='black'
+            )
+
+        axes[2].set_xlabel('x')
+        axes[2].set_ylabel('y')
+        axes[2].set_title(
+            f"TSP Partitions"
+        )
+        axes[2].grid(alpha=0.3)
+
+        # Adjust spacing
+        plt.tight_layout()
         plt.show()
 
 
