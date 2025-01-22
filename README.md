@@ -14,8 +14,8 @@ from TSP import TSP
 
 # Initialize NumPy arrays of shape (n_samples, dim) with random 
 # variables samples in Fortran-contiguous memory order
-X = np.array([...], order='F')
-Y = np.array([...], order='F')
+X = np.array([...], order='F').reshape(-1, 1)
+Y = np.array([...], order='F').reshape(-1, 1)
 
 # Initialize the TSP with its parameters
 l_bn = 0.167
