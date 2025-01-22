@@ -6,7 +6,6 @@ Maximiliano Rojas - Information and Decision System Group - Universidad de Chile
 """
 
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 from TSPNode import TSPNode
 
@@ -31,28 +30,27 @@ class TSP:
 
 
     def grow(self, x, y):
+        # Convert inputs to numpy arrays if they aren't already
+        x = np.array(x)
+        y = np.array(y)
 
         # Data array
-        data = np.concatenate((pd.DataFrame(x).values, pd.DataFrame(y).values), axis=1)
-
+        data = np.concatenate((x, y), axis=1)
 
         # Number of samples and dimensions of data
         self.n_samples = data.shape[0]
         self.dim = data.shape[1]
         
-
         # Define a root node and determine the critical mass according to its formula
         self.root = TSPNode()
         self.kn = np.ceil(self.w_bn * pow(self.n_samples, 1 - self.l_bn))
 
-
         # Initial lower and upper bounds of the whole sample space
-        lowerBounds = data.min(axis=0) - 0.001
-        upperBounds = data.max(axis=0) + 0.001
+        lowerBounds = np.min(data, axis=0) - 0.001
+        upperBounds = np.max(data, axis=0) + 0.001
 
-
-        # Two lists: one which indicates whose dimensiones came from the vector X and the other has the indices of every sample in the whole space
-        Xdim_indicator = [True] * pd.DataFrame(x).shape[1] + [False] * pd.DataFrame(y).shape[1]
+        # Two lists: one which indicates whose dimensions came from the vector X and the other has the indices of every sample in the whole space
+        Xdim_indicator = [True] * x.shape[1] + [False] * y.shape[1]
         nodeIdx = list(range(self.n_samples))
 
 
@@ -109,7 +107,7 @@ class TSP:
         self.tsp_reg_emi = -optimal_cost
         self.tsp_reg_size = optimal_size 
 
-    
+
     def minimum_cost_trees(self, treesEMI, full_tree_size):
 
         # An auxiliary array that will store the leaves of each minimum cost tree in every iteration. 
@@ -139,7 +137,6 @@ class TSP:
             self.subadditive_insert(leaf_maxCMI.right, leaves, k + 1)
 
 
-    
     def subadditive_insert(self, new_leaf, leaves, j):
 
         # Storage the new leaf

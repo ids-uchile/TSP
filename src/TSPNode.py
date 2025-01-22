@@ -7,6 +7,7 @@ Maximiliano Rojas - Information and Decision System Group - Universidad de Chile
 import numpy as np
 import math
 
+
 class TSPNode:
     def __init__(self, parent=None):
         self.left = None
@@ -112,7 +113,7 @@ class TSPNode:
             
         return node
     
-        
+
     def conditionalMarginalProd(self, data, lower_bounds, upper_bounds, Xdim_indicator, dim, proj_dim):
         if proj_dim == 0:
             return 1
