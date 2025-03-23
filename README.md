@@ -4,6 +4,16 @@
 
 Data-driven Mutual Information Estimator based on regularized tree-structured partitions.
 
+## Instalation
+
+This package now counts with [`uv`](https://docs.astral.sh/uv/), this makes installation of the dependencies very easy. If you have `uv` already installed, you just need to run:
+
+```
+uv sync
+```
+
+This command will automatically generate a virtual environment with all that is needed for correctly executing the `TSP` module
+
 ## Usage
 - Python package `TSP.py` example of use.
 ```Python
