@@ -3,7 +3,7 @@ import sys
 sys.path.append('../src')
 
 # Import the package
-from TSP import TSP
+from TSP.core import TSP
 
 # Initialize NumPy arrays of shape (n_samples, dim) with random 
 # variables samples in Fortran-contiguous memory order
