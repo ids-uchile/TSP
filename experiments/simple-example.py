@@ -1,6 +1,4 @@
 import numpy as np
-import sys
-sys.path.append('../src')
 
 # Import the package
 from TSP.core import TSP
